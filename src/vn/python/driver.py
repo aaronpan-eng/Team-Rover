@@ -20,7 +20,7 @@ def convert_to_quaternion(euler: tuple) -> Quaternion:
     Returns
     * Quaternion
     """
-    quat = nav.convert_to_quaternion(euler)
+    quat = vectornav.convert_to_quaternion(euler)
 
     return Quaternion(
         x=quat[0],
