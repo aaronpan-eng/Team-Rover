@@ -1,0 +1,6 @@
+<launch>
+
+	<arg name="port" />
+	<node name="vn_driver" pkg="vn_driver" type="driver.py" args="$(arg port)" />
+
+</launch>

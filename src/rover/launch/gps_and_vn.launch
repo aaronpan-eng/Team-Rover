@@ -1,0 +1,6 @@
+<launch>
+    <arg name="gps_port" />
+	<arg name="vn_port" />
+	<node name="gps_driver" pkg="gps_driver" type="standalone_driver.py" args="$(arg gps_port)" />
+    <node name="vn" pkg="vn" type="driver.py" args="$(arg vn_port)" />
+</launch>

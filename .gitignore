@@ -1,0 +1,11 @@
+build/
+devel/
+.catkin_workspace
+
+*.png
+*.txt
+
+.DS_Store
+
+!*/*/*/CMakeLists.txt
+
