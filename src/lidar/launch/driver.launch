@@ -1,0 +1,6 @@
+<launch>
+
+	<arg name="port" />
+	<node name="lidar" pkg="lidar" type="driver.py" args="$(arg port)" />
+
+</launch>
