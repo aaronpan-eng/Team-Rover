@@ -6,7 +6,7 @@ import rospy
 from geometry_msgs.msg import Quaternion, Vector3
 from std_msgs.msg import Header
 from sensor_msgs.msg import Imu, MagneticField
-from vn_driver.msg import Vectornav
+from vn.msg import Vectornav
 from vectornav import NavDriver
 import vectornav
 

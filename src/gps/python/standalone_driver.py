@@ -4,7 +4,7 @@ import serial
 
 import rospy
 from std_msgs.msg import Header
-from gps_driver.msg import Customgps
+from gps.msg import Customgps
 from gps_reader import GpsReader
 
 
