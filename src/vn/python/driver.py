@@ -47,11 +47,8 @@ def publish_from_device(port: str):
     while not rospy.is_shutdown():
         data = next(nav)
 
-        # TODO use updated lab5 timestamp
-        raise NotImplementedError('need to fix vectornav time conversion')
-        sec = None
-        nsec = None
-        timestamp = rospy.Time(sec, nsec)
+        # raise NotImplementedError('need to fix vectornav time conversion')
+        timestamp = rospy.Time.now()
 
         header = Header(
             frame_id='imu1_frame',

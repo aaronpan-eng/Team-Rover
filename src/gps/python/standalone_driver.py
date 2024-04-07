@@ -20,9 +20,9 @@ def publish_from_device(port: str):
     while not rospy.is_shutdown():
         data = next(rdr)
 
-        ts = data.timestamp.timestamp()
-        sec = int(ts)
-        nsec = int(round(ts - sec, 6) * 1_000_000_000)
+        ts = data.timestamp
+        sec = ts[0]
+        nsec = ts[1]
 
         utm = data.to_utm()
 

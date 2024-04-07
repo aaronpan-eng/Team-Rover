@@ -1,9 +1,19 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional, TextIO, BinaryIO, Union, List, Type
+import time
 
 import utm
 
+def UTCtoUTCEpoch(UTC):
+    UTCinSecs = (int(UTC/10000)*3600)+(int((UTC%10000)/100)*60)+(UTC%100) #Replace with a line that converts the UTC float in hhmmss.ss to seconds as a float
+    TimeSinceEpoch = time.mktime(time.localtime()) #Replace with a 1-line method to get time since epoch
+    TimeSinceEpochBOD = TimeSinceEpoch - (TimeSinceEpoch % 86400) #Use the time since epoch to get the time since epoch *at the beginning of the day*
+    CurrentTime = TimeSinceEpochBOD + UTCinSecs
+    CurrentTimeSec = int(CurrentTime) #Replace with a 1-line calculation to get total seconds as an integer
+    CurrentTimeNsec = int((CurrentTime-CurrentTimeSec)*1e9) #Replace with a 1-line calculation to get remaining nanoseconds as an integer (between CurrentTime and CurrentTimeSec )
+    print(CurrentTime)
+    return [CurrentTimeSec, CurrentTimeNsec]
 
 @dataclass
 class UTM:
@@ -16,7 +26,7 @@ class UTM:
 @dataclass
 class GpsMsg:
     raw: str
-    timestamp: datetime  # TODO maybe change this data type
+    timestamp: tuple
     latitude: float
     longitude: float
     altitude: float
@@ -52,9 +62,9 @@ Referenced while writing
         if header != cls.header:
             raise ValueError(f'not a {cls.header} message, header was {header}')
 
-        # TODO replace with updated lab5 version of gps time
-        raise NotImplementedError('need to fix gps time conversion')
-        timestamp = None
+        # raise NotImplementedError('need to fix gps time conversion')
+        sec, nsec = UTCtoUTCEpoch(time)
+        timestamp = (sec, nsec)
 
         try:
             deg = float(lat[:2])
