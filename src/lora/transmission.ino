@@ -1,6 +1,3 @@
-// Instructions for setting up the Adafruit Feather 32u4 with LoRa Radio Module
-//  https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/using-with-arduino-ide
-
 // Feather9x_TX
 // -*- mode: C++ -*-
 // Example sketch showing how to create a simple messaging client (transmitter)
@@ -14,45 +11,45 @@
 #include <RH_RF95.h>
 
 // First 3 here are boards w/radio BUILT-IN. Boards using FeatherWing follow.
-#if defined(__AVR_ATmega32U4__) // Feather 32u4 w/Radio
-#define RFM95_CS 8
-#define RFM95_INT 7
-#define RFM95_RST 4
+#if defined (__AVR_ATmega32U4__)  // Feather 32u4 w/Radio
+  #define RFM95_CS    8
+  #define RFM95_INT   7
+  #define RFM95_RST   4
 
-#elif defined(ADAFRUIT_FEATHER_M0) || defined(ADAFRUIT_FEATHER_M0_EXPRESS) || defined(ARDUINO_SAMD_FEATHER_M0) // Feather M0 w/Radio
-#define RFM95_CS 8
-#define RFM95_INT 3
-#define RFM95_RST 4
+#elif defined(ADAFRUIT_FEATHER_M0) || defined(ADAFRUIT_FEATHER_M0_EXPRESS) || defined(ARDUINO_SAMD_FEATHER_M0)  // Feather M0 w/Radio
+  #define RFM95_CS    8
+  #define RFM95_INT   3
+  #define RFM95_RST   4
 
-#elif defined(ARDUINO_ADAFRUIT_FEATHER_RP2040_RFM) // Feather RP2040 w/Radio
-#define RFM95_CS 16
-#define RFM95_INT 21
-#define RFM95_RST 17
+#elif defined(ARDUINO_ADAFRUIT_FEATHER_RP2040_RFM)  // Feather RP2040 w/Radio
+  #define RFM95_CS   16
+  #define RFM95_INT  21
+  #define RFM95_RST  17
 
-#elif defined(__AVR_ATmega328P__) // Feather 328P w/wing
-#define RFM95_CS 4                //
-#define RFM95_INT 3               //
-#define RFM95_RST 2               // "A"
+#elif defined (__AVR_ATmega328P__)  // Feather 328P w/wing
+  #define RFM95_CS    4  //
+  #define RFM95_INT   3  //
+  #define RFM95_RST   2  // "A"
 
-#elif defined(ESP8266) // ESP8266 feather w/wing
-#define RFM95_CS 2     // "E"
-#define RFM95_INT 15   // "B"
-#define RFM95_RST 16   // "D"
+#elif defined(ESP8266)  // ESP8266 feather w/wing
+  #define RFM95_CS    2  // "E"
+  #define RFM95_INT  15  // "B"
+  #define RFM95_RST  16  // "D"
 
 #elif defined(ARDUINO_ADAFRUIT_FEATHER_ESP32S2) || defined(ARDUINO_NRF52840_FEATHER) || defined(ARDUINO_NRF52840_FEATHER_SENSE)
-#define RFM95_CS 10  // "B"
-#define RFM95_INT 9  // "A"
-#define RFM95_RST 11 // "C"
+  #define RFM95_CS   10  // "B"
+  #define RFM95_INT   9  // "A"
+  #define RFM95_RST  11  // "C"
 
-#elif defined(ESP32) // ESP32 feather w/wing
-#define RFM95_CS 33  // "B"
-#define RFM95_INT 27 // "A"
-#define RFM95_RST 13
+#elif defined(ESP32)  // ESP32 feather w/wing
+  #define RFM95_CS   33  // "B"
+  #define RFM95_INT  27  // "A"
+  #define RFM95_RST  13
 
-#elif defined(ARDUINO_NRF52832_FEATHER) // nRF52832 feather w/wing
-#define RFM95_CS 11                     // "B"
-#define RFM95_INT 31                    // "C"
-#define RFM95_RST 7                     // "A"
+#elif defined(ARDUINO_NRF52832_FEATHER)  // nRF52832 feather w/wing
+  #define RFM95_CS   11  // "B"
+  #define RFM95_INT  31  // "C"
+  #define RFM95_RST   7  // "A"
 
 #endif
 
@@ -84,20 +81,18 @@
 #define RFM95_INT  6  // "D"
 */
 
-// Change to 434.0 or other frequency, must match RX's freq!
-#define RF95_FREQ 915.0
-
-// Singleton instance of the radio driver
-RH_RF95 rf95(RFM95_CS, RFM95_INT);
-
-void setup()
-{
+// Change to 434.0 or other frequency, must match RX's freq!  
+#define RF95_FREQ 915.0 
+  
+// Singleton instance of the radio driver 
+RH_RF95 rf95(RFM95_CS, RFM95_INT);  
+  
+void setup() {  
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
 
   Serial.begin(115200);
-  while (!Serial)
-    delay(1);
+  while (!Serial) delay(1);
   delay(100);
 
   Serial.println("Feather LoRa TX Test!");
@@ -108,24 +103,19 @@ void setup()
   digitalWrite(RFM95_RST, HIGH);
   delay(10);
 
-  while (!rf95.init())
-  {
+  while (!rf95.init()) {
     Serial.println("LoRa radio init failed");
     Serial.println("Uncomment '#define SERIAL_DEBUG' in RH_RF95.cpp for detailed debug info");
-    while (1)
-      ;
+    while (1);
   }
   Serial.println("LoRa radio init OK!");
 
   // Defaults after init are 434.0MHz, modulation GFSK_Rb250Fd250, +13dbM
-  if (!rf95.setFrequency(RF95_FREQ))
-  {
+  if (!rf95.setFrequency(RF95_FREQ)) {
     Serial.println("setFrequency failed");
-    while (1)
-      ;
+    while (1);
   }
-  Serial.print("Set Freq to: ");
-  Serial.println(RF95_FREQ);
+  Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
 
   // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
 
@@ -137,10 +127,9 @@ void setup()
   Serial.println("Setup complete");
 }
 
-int16_t packetnum = 0; // packet counter, we increment per xmission
+int16_t packetnum = 0;  // packet counter, we increment per xmission
 
-void loop()
-{
+void loop() {
   delay(1000); // Wait 1 second between transmits, could also 'sleep' here!
 
   // char radiopacket[20] = "Hello World #      ";
@@ -153,8 +142,7 @@ void loop()
   Serial.println("Enter something:");
 
   // Wait until user sends input
-  while (!Serial.available())
-  {
+  while (!Serial.available()) {
     // Wait for input
   }
 
@@ -162,8 +150,7 @@ void loop()
   String userInput = Serial.readString();
 
   // Print user input to be sent
-  Serial.print("Sending ");
-  Serial.println(userInput);
+  Serial.print("Sending "); Serial.println(userInput);
 
   // // Serial.println("Sending...");
   // delay(10);
@@ -181,33 +168,27 @@ void loop()
   rf95.waitPacketSent();
 
   // Clear the serial input buffer
-  while (Serial.available())
-  {
-    Serial.read();
-  }
+    while (Serial.available()) {
+      Serial.read();
+    }
 
   // Now wait for a reply
   uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
   uint8_t len = sizeof(buf);
 
   Serial.println("Waiting for reply...");
-  if (rf95.waitAvailableTimeout(1000))
-  {
+  if (rf95.waitAvailableTimeout(1000)) {
     // Should be a reply message for us now
-    if (rf95.recv(buf, &len))
-    {
+    if (rf95.recv(buf, &len)) {
       Serial.print("Got reply: ");
-      Serial.println((char *)buf);
+      Serial.println((char*)buf);
       Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
-    }
-    else
-    {
+    } else {
       Serial.println("Receive failed");
     }
-  }
-  else
-  {
+  } else {
     Serial.println("No reply, is there a listener around?");
   }
+
 }
