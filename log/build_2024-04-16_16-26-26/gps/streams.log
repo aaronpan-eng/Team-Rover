@@ -1,0 +1,3 @@
+[0.019s] Invoking command in '/home/aaron/Team-Rover/build/gps': /usr/bin/cmake /home/aaron/Team-Rover/src/gps -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/aaron/Team-Rover/install/gps
+[0.038s] [0mCMake Error: The source directory "/home/aaron/Team-Rover/src/gps" does not appear to contain CMakeLists.txt.
+[0.038s] Specify --help for usage, or press the help button on the CMake GUI.[0m
