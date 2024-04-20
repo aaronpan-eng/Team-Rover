@@ -1,0 +1,14 @@
+[0.898s] Invoking command in '/home/aaron/Team-Rover/src/gps': PYTHONPATH=/home/aaron/Team-Rover/build/gps/prefix_override:/home/aaron/Team-Rover/install/gps/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gps build --build-base /home/aaron/Team-Rover/build/gps/build install --record /home/aaron/Team-Rover/build/gps/install.log --single-version-externally-managed install_data
+[1.170s] running egg_info
+[1.171s] writing ../../build/gps/gps.egg-info/PKG-INFO
+[1.171s] writing dependency_links to ../../build/gps/gps.egg-info/dependency_links.txt
+[1.171s] writing entry points to ../../build/gps/gps.egg-info/entry_points.txt
+[1.171s] writing requirements to ../../build/gps/gps.egg-info/requires.txt
+[1.171s] writing top-level names to ../../build/gps/gps.egg-info/top_level.txt
+[1.174s] reading manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
+[1.175s] writing manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
+[1.175s] running build
+[1.175s] running install
+[1.176s] running install_data
+[1.176s] error: can't copy 'resource/gps': doesn't exist or not a regular file
+[1.205s] Invoked command in '/home/aaron/Team-Rover/src/gps' returned '1': PYTHONPATH=/home/aaron/Team-Rover/build/gps/prefix_override:/home/aaron/Team-Rover/install/gps/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gps build --build-base /home/aaron/Team-Rover/build/gps/build install --record /home/aaron/Team-Rover/build/gps/install.log --single-version-externally-managed install_data

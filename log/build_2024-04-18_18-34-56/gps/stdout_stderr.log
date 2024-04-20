@@ -1,0 +1,14 @@
+running egg_info
+writing ../../build/gps/gps.egg-info/PKG-INFO
+writing dependency_links to ../../build/gps/gps.egg-info/dependency_links.txt
+writing entry points to ../../build/gps/gps.egg-info/entry_points.txt
+writing requirements to ../../build/gps/gps.egg-info/requires.txt
+writing top-level names to ../../build/gps/gps.egg-info/top_level.txt
+reading manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
+writing manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
+running build
+running install
+running install_data
+warning: install_data: setup script did not provide a directory for 'share/ament_index/resource_index/packages' -- installing right in '/home/aaron/Team-Rover/install/gps'
+
+error: can't copy 'share/ament_index/resource_index/packages': doesn't exist or not a regular file

@@ -1,0 +1,1 @@
+Invoking command in '/home/aaron/Team-Rover/build/ld08_driver': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/aaron/Team-Rover/src/lidar/ld08_driver -DCMAKE_INSTALL_PREFIX=/home/aaron/Team-Rover/install/ld08_driver
