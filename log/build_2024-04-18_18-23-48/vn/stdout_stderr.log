@@ -1,0 +1,12 @@
+running egg_info
+writing ../../build/vn/vn.egg-info/PKG-INFO
+writing dependency_links to ../../build/vn/vn.egg-info/dependency_links.txt
+writing entry points to ../../build/vn/vn.egg-info/entry_points.txt
+writing requirements to ../../build/vn/vn.egg-info/requires.txt
+writing top-level names to ../../build/vn/vn.egg-info/top_level.txt
+reading manifest file '../../build/vn/vn.egg-info/SOURCES.txt'
+writing manifest file '../../build/vn/vn.egg-info/SOURCES.txt'
+running build
+running install
+running install_data
+error: can't copy 'resource/vn': doesn't exist or not a regular file

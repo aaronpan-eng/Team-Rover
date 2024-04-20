@@ -1,0 +1,7 @@
+running egg_info
+creating ../../build/gps/gps.egg-info
+writing ../../build/gps/gps.egg-info/PKG-INFO
+writing dependency_links to ../../build/gps/gps.egg-info/dependency_links.txt
+writing top-level names to ../../build/gps/gps.egg-info/top_level.txt
+writing manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
+error: package directory 'python/gps_driver' does not exist

@@ -1,0 +1,28 @@
+[0.566s] Invoking command in '/home/aaron/Team-Rover/build/ld08_driver': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/aaron/Team-Rover/build/ld08_driver -- -j8 -l8
+[0.609s] [35m[1mConsolidate compiler generated dependencies of target ld08_driver[0m
+[0.638s] [100%] Built target ld08_driver
+[0.649s] Invoked command in '/home/aaron/Team-Rover/build/ld08_driver' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/aaron/Team-Rover/build/ld08_driver -- -j8 -l8
+[0.685s] Invoking command in '/home/aaron/Team-Rover/build/ld08_driver': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/aaron/Team-Rover/build/ld08_driver
+[0.691s] -- Install configuration: ""
+[0.691s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/launch
+[0.692s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/launch/ld08.launch.py
+[0.692s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/lib/ld08_driver/ld08_driver
+[0.693s] -- Set runtime path of "/home/aaron/Team-Rover/install/ld08_driver/lib/ld08_driver/ld08_driver" to ""
+[0.693s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ament_index/resource_index/package_run_dependencies/ld08_driver
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ament_index/resource_index/parent_prefix_path/ld08_driver
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/environment/ament_prefix_path.sh
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/environment/ament_prefix_path.dsv
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/environment/path.sh
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/environment/path.dsv
+[0.694s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/local_setup.bash
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/local_setup.sh
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/local_setup.zsh
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/local_setup.dsv
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/package.dsv
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ament_index/resource_index/packages/ld08_driver
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.695s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/cmake/ld08_driverConfig.cmake
+[0.696s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/cmake/ld08_driverConfig-version.cmake
+[0.696s] -- Installing: /home/aaron/Team-Rover/install/ld08_driver/share/ld08_driver/package.xml
+[0.697s] Invoked command in '/home/aaron/Team-Rover/build/ld08_driver' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/aaron/Team-Rover/build/ld08_driver

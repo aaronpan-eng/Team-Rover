@@ -1,0 +1,9 @@
+[0.941s] Invoking command in '/home/aaron/Team-Rover/src/vn': PYTHONPATH=/home/aaron/Team-Rover/build/vn/prefix_override:/home/aaron/Team-Rover/install/vn/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/vn build --build-base /home/aaron/Team-Rover/build/vn/build install --record /home/aaron/Team-Rover/build/vn/install.log --single-version-externally-managed install_data
+[1.203s] running egg_info
+[1.204s] writing ../../build/vn/vn.egg-info/PKG-INFO
+[1.204s] writing dependency_links to ../../build/vn/vn.egg-info/dependency_links.txt
+[1.204s] writing entry points to ../../build/vn/vn.egg-info/entry_points.txt
+[1.204s] writing requirements to ../../build/vn/vn.egg-info/requires.txt
+[1.204s] writing top-level names to ../../build/vn/vn.egg-info/top_level.txt
+[1.207s] error: package directory 'vn' does not exist
+[1.237s] Invoked command in '/home/aaron/Team-Rover/src/vn' returned '1': PYTHONPATH=/home/aaron/Team-Rover/build/vn/prefix_override:/home/aaron/Team-Rover/install/vn/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/vn build --build-base /home/aaron/Team-Rover/build/vn/build install --record /home/aaron/Team-Rover/build/vn/install.log --single-version-externally-managed install_data

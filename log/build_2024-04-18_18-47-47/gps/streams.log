@@ -1,0 +1,9 @@
+[1.012s] Invoking command in '/home/aaron/Team-Rover/src/gps': PYTHONPATH=/home/aaron/Team-Rover/build/gps/prefix_override:/home/aaron/Team-Rover/install/gps/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gps build --build-base /home/aaron/Team-Rover/build/gps/build install --record /home/aaron/Team-Rover/build/gps/install.log --single-version-externally-managed install_data
+[1.267s] running egg_info
+[1.268s] writing ../../build/gps/gps.egg-info/PKG-INFO
+[1.268s] writing dependency_links to ../../build/gps/gps.egg-info/dependency_links.txt
+[1.268s] writing entry points to ../../build/gps/gps.egg-info/entry_points.txt
+[1.268s] writing requirements to ../../build/gps/gps.egg-info/requires.txt
+[1.268s] writing top-level names to ../../build/gps/gps.egg-info/top_level.txt
+[1.271s] error: package directory 'src/gps' does not exist
+[1.298s] Invoked command in '/home/aaron/Team-Rover/src/gps' returned '1': PYTHONPATH=/home/aaron/Team-Rover/build/gps/prefix_override:/home/aaron/Team-Rover/install/gps/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gps build --build-base /home/aaron/Team-Rover/build/gps/build install --record /home/aaron/Team-Rover/build/gps/install.log --single-version-externally-managed install_data

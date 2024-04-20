@@ -1,0 +1,7 @@
+[ 16%] [32mBuilding CXX object CMakeFiles/ld08_driver.dir/src/lipkg.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/ld08_driver.dir/src/slbf.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/ld08_driver.dir/src/main.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/ld08_driver.dir/src/transform.cpp.o[0m
+[ 83%] [32mBuilding CXX object CMakeFiles/ld08_driver.dir/src/cmd_interface_linux.cpp.o[0m
+[100%] [32m[1mLinking CXX executable ld08_driver[0m
+[100%] Built target ld08_driver
