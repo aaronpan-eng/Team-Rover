@@ -2,22 +2,22 @@
 from argparse import ArgumentParser
 import serial
 
-import rospy
+import rclpy
 from std_msgs.msg import Header
 from gps.msg import Customgps
 from gps_reader import GpsReader
 
 
 def publish_from_device(port: str):
-    pub = rospy.Publisher('gps', Customgps, queue_size=10)
-    rospy.init_node('gps_driver', anonymous=True)
-    rate = rospy.Rate(10)
+    pub = rclpy.Publisher('gps', Customgps, queue_size=10)
+    rclpy.init_node('gps_driver', anonymous=True)
+    rate = rclpy.Rate(10)
 
     stream = serial.Serial(port, timeout=1)
     rdr = GpsReader(stream)
     seq = 0
 
-    while not rospy.is_shutdown():
+    while not rclpy.is_shutdown():
         data = next(rdr)
 
         ts = data.timestamp
@@ -28,7 +28,7 @@ def publish_from_device(port: str):
 
         header = Header(
             frame_id='GPS1_Frame',
-            stamp=rospy.Time(sec, nsec),
+            stamp=rclpy.Time(sec, nsec),
             seq=seq,
         )
 
@@ -45,7 +45,7 @@ def publish_from_device(port: str):
             gpgga_read=data.raw,
         )
 
-        rospy.loginfo(msg)
+        rclpy.loginfo(msg)
         pub.publish(msg)
         rate.sleep()
 
@@ -63,5 +63,5 @@ if __name__ == '__main__':
 
     try:
         publish_from_device(args.port)
-    except rospy.ROSInterruptException:
+    except rclpy.ROSInterruptException:
         pass

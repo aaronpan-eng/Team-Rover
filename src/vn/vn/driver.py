@@ -2,7 +2,7 @@
 from argparse import ArgumentParser
 import serial
 
-import rospy
+import rclpy
 from geometry_msgs.msg import Quaternion, Vector3
 from std_msgs.msg import Header
 from sensor_msgs.msg import Imu, MagneticField
@@ -31,24 +31,24 @@ def convert_to_quaternion(euler: tuple) -> Quaternion:
 
 
 def publish_from_device(port: str):
-    pub = rospy.Publisher('imu', Vectornav, queue_size=10)
-    rospy.init_node('vn_driver', anonymous=True)
-    rate = rospy.Rate(40)
+    pub = rclpy.Publisher('imu', Vectornav, queue_size=10)
+    rclpy.init_node('vn_driver', anonymous=True)
+    rate = rclpy.Rate(40)
 
     stream = serial.Serial(port, timeout=1)
     seq = 0
 
     nav = NavDriver(stream)
     # this configures the device by writing to registers
-    rospy.loginfo('Configuring device')
+    rclpy.loginfo('Configuring device')
     nav.setup()
-    rospy.loginfo('Done configuring')
+    rclpy.loginfo('Done configuring')
 
-    while not rospy.is_shutdown():
+    while not rclpy.is_shutdown():
         data = next(nav)
 
         # raise NotImplementedError('need to fix vectornav time conversion')
-        timestamp = rospy.Time.now()
+        timestamp = rclpy.Time.now()
 
         header = Header(
             frame_id='imu1_frame',
@@ -98,7 +98,7 @@ def publish_from_device(port: str):
             raw=data.raw,
         )
 
-        rospy.loginfo(msg)
+        rclpy.loginfo(msg)
         pub.publish(msg)
         rate.sleep()
 
@@ -116,5 +116,5 @@ if __name__ == '__main__':
 
     try:
         publish_from_device(args.port)
-    except rospy.ROSInterruptException:
+    except rclpy.ROSInterruptException:
         pass
