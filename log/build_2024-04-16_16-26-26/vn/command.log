@@ -1,1 +1,0 @@
-Invoking command in '/home/aaron/Team-Rover/build/vn': /usr/bin/cmake /home/aaron/Team-Rover/src/vn -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/aaron/Team-Rover/install/vn

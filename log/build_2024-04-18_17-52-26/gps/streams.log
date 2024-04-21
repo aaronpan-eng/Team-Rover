@@ -1,8 +1,0 @@
-[1.256s] Invoking command in '/home/aaron/Team-Rover/src/gps': PYTHONPATH=/home/aaron/Team-Rover/build/gps/prefix_override:/home/aaron/Team-Rover/install/gps/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gps build --build-base /home/aaron/Team-Rover/build/gps/build install --record /home/aaron/Team-Rover/build/gps/install.log --single-version-externally-managed
-[1.793s] running egg_info
-[1.794s] creating ../../build/gps/gps.egg-info
-[1.795s] writing ../../build/gps/gps.egg-info/PKG-INFO
-[1.795s] writing dependency_links to ../../build/gps/gps.egg-info/dependency_links.txt
-[1.795s] writing top-level names to ../../build/gps/gps.egg-info/top_level.txt
-[1.797s] writing manifest file '../../build/gps/gps.egg-info/SOURCES.txt'
-[1.798s] error: package directory 'python/gps_driver' does not exist

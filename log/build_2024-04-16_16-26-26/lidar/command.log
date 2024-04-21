@@ -1,2 +1,0 @@
-Invoking command in '/home/aaron/Team-Rover/build/lidar': /usr/bin/cmake /home/aaron/Team-Rover/src/lidar -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/aaron/Team-Rover/install/lidar
-Invoked command in '/home/aaron/Team-Rover/build/lidar' returned '1': /usr/bin/cmake /home/aaron/Team-Rover/src/lidar -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/aaron/Team-Rover/install/lidar

@@ -1,3 +1,0 @@
-warning: install_data: setup script did not provide a directory for 'share/ament_index/resource_index/packages' -- installing right in '/home/aaron/Team-Rover/install/gps'
-
-error: can't copy 'share/ament_index/resource_index/packages': doesn't exist or not a regular file
