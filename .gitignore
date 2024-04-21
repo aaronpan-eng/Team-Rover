@@ -4,8 +4,10 @@ log/
 
 *.png
 *.txt
+*.yaml
+*.bag/
 
 .DS_Store
 
-!*/*/*/CMakeLists.txt
+!CMakeLists.txt
 

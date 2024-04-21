@@ -8,7 +8,7 @@ import numpy as np
 
 from vn.msg import Vectornav
 from gps.msg import Customgps
-from rover.msg import Localization
+from rover_msgs.msg import Localization
 
 if __name__ == '__main__':
     # Initialize node, message, and publisher for localization

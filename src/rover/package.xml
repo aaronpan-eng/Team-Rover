@@ -3,9 +3,13 @@
 <package format="3">
   <name>rover</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="apan18@bu.edu">aaron</maintainer>
-  <license>TODO: License declaration</license>
+  <description>The rover package</description>
+  <maintainer email="ubuntu@todo.todo">ubuntu</maintainer>
+  <license>TODO</license>
+
+  <depend>gps</depend>
+  <depend>rover_msgs</depend>
+  <depend>vn</depend>
 
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
