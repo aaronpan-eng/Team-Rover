@@ -4,7 +4,7 @@ import serial
 
 import rclpy
 from std_msgs.msg import Header
-from gps.msg import Customgps
+from rover_msgs.msg import Customgps
 from gps_reader import GpsReader
 
 
