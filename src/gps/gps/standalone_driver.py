@@ -3,22 +3,27 @@ from argparse import ArgumentParser
 import serial
 
 import rclpy
+from rclpy.node import Node
 from std_msgs.msg import Header
 from rover_msgs.msg import Customgps
-from gps_reader import GpsReader
+from gps.gps_reader import GpsReader
 
+class GPSPublisher(Node):
 
-def publish_from_device(port: str):
-    pub = rclpy.Publisher('gps', Customgps, queue_size=10)
-    rclpy.init_node('gps_driver', anonymous=True)
-    rate = rclpy.Rate(10)
+    def __init__(self, name, port):
+        super().__init__(name)
+        self.publisher_ = self.create_publisher(
+            Customgps, 
+            'gps', 
+            10)
+        stream = serial.Serial(port, timeout=1)
+        self.gps = GpsReader(stream)
+        timer_period = 1/10  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
 
-    stream = serial.Serial(port, timeout=1)
-    rdr = GpsReader(stream)
-    seq = 0
-
-    while not rclpy.is_shutdown():
-        data = next(rdr)
+    def timer_callback(self):
+        data = next(self.gps)
 
         ts = data.timestamp
         sec = ts[0]
@@ -28,8 +33,7 @@ def publish_from_device(port: str):
 
         header = Header(
             frame_id='GPS1_Frame',
-            stamp=rclpy.Time(sec, nsec),
-            seq=seq,
+            stamp=rclpy.Time(sec, nsec)
         )
 
         msg = Customgps(
@@ -45,14 +49,22 @@ def publish_from_device(port: str):
             gpgga_read=data.raw,
         )
 
-        rclpy.loginfo(msg)
-        pub.publish(msg)
-        rate.sleep()
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "%s"' % msg)
+        self.i += 1
 
-        seq += 1
+def main(name = 'gps_node', port = '/dev/ttyUSB0'):
+    rclpy.init()
 
-    rdr.close()
+    node = GPSPublisher(name, port)
 
+    rclpy.spin(node)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    node.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Parse Gps puck output and publish ROS messages')
@@ -62,6 +74,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     try:
-        publish_from_device(args.port)
+        main(name=args.name)
     except rclpy.ROSInterruptException:
         pass

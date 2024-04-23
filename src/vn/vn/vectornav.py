@@ -206,6 +206,7 @@ class NavDriver:
 
     def __next__(self) -> NavMsg:
         while b := self.stream.readline():
+            print(b)
             if isinstance(b, bytes):
                 line = b.decode('ascii')
             else:

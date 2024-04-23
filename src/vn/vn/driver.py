@@ -20,7 +20,7 @@ class ImuPublisher(Node):
             'imu', 
             10)
         timer_period = 1/40  # seconds
-        stream = serial.Serial(port, timeout=1)
+        stream = serial.Serial(port, baudrate=115200, timeout=1)
         self.nav = NavDriver(stream)
         # this configures the device by writing to registers
         self.get_logger().info('Configuring device')
@@ -30,12 +30,8 @@ class ImuPublisher(Node):
         self.i = 0
 
     def timer_callback(self):
-        # msg = String()
-        # msg.data = 'Hello World: %d' % self.i
-
         data = next(self.nav)
 
-        # raise NotImplementedError('need to fix vectornav time conversion')
         timestamp = self.get_clock().now().to_msg()
 
         header = Header(
@@ -87,7 +83,7 @@ class ImuPublisher(Node):
         )
         
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.get_logger().info('Publishing: "%s"' % msg)
         self.i += 1
 
 
