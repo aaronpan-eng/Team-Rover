@@ -1,0 +1,3 @@
+ACTION=="add", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="23a3", SYMLINK+="gps"
+ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="lidar"
+ACTION=="add", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="vectornav"
