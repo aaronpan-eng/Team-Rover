@@ -6,6 +6,7 @@ import time
 import utm
 
 def UTCtoUTCEpoch(UTC):
+    UTC = float(UTC)
     UTCinSecs = (int(UTC/10000)*3600)+(int((UTC%10000)/100)*60)+(UTC%100) #Replace with a line that converts the UTC float in hhmmss.ss to seconds as a float
     TimeSinceEpoch = time.mktime(time.localtime()) #Replace with a 1-line method to get time since epoch
     TimeSinceEpochBOD = TimeSinceEpoch - (TimeSinceEpoch % 86400) #Use the time since epoch to get the time since epoch *at the beginning of the day*

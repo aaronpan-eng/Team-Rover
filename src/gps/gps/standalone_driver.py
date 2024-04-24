@@ -3,6 +3,7 @@ from argparse import ArgumentParser
 import serial
 
 import rclpy
+from rclpy.time import Time
 from rclpy.node import Node
 from std_msgs.msg import Header
 from rover_msgs.msg import Customgps
@@ -16,7 +17,7 @@ class GPSPublisher(Node):
             Customgps, 
             'gps', 
             10)
-        stream = serial.Serial(port, timeout=1)
+        stream = serial.Serial(port, baudrate=4800, timeout=1)
         self.gps = GpsReader(stream)
         timer_period = 1/10  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -33,7 +34,7 @@ class GPSPublisher(Node):
 
         header = Header(
             frame_id='GPS1_Frame',
-            stamp=rclpy.Time(sec, nsec)
+            stamp=Time(sec, nsec)
         )
 
         msg = Customgps(
@@ -53,7 +54,7 @@ class GPSPublisher(Node):
         self.get_logger().info('Publishing: "%s"' % msg)
         self.i += 1
 
-def main(name = 'gps_node', port = '/dev/ttyUSB0'):
+def main(name = 'gps_node', port = '/dev/gps'):
     rclpy.init()
 
     node = GPSPublisher(name, port)
