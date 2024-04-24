@@ -27,7 +27,6 @@ class ImuPublisher(Node):
         self.nav.setup()
         self.get_logger().info('Done configuring')
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.i = 0
 
     def timer_callback(self):
         data = next(self.nav)
@@ -37,7 +36,6 @@ class ImuPublisher(Node):
         header = Header(
             frame_id='imu1_frame',
             stamp=timestamp,
-            # seq=seq,
         )
 
         imu = Imu(
@@ -83,8 +81,6 @@ class ImuPublisher(Node):
         )
         
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg)
-        self.i += 1
 
 
 def convert_to_quaternion(euler: tuple) -> Quaternion:

@@ -185,8 +185,8 @@ class NavDriver:
     def setup(self):
         # Write to reg
         reg = 75
-        # async mode 1 -> send to port 1 at fixed rate
-        async_mode = 1
+        # async mode 2 -> send to port 2 at fixed rate
+        async_mode = 2
         # rate divisor 20 -> 800/20 = 40Hz
         rate_divisor = 20
         # group 1 only
@@ -206,11 +206,20 @@ class NavDriver:
 
     def __next__(self) -> NavMsg:
         while b := self.stream.readline():
-            print(b)
             if isinstance(b, bytes):
-                line = b.decode('ascii')
+                header_idx = b.rfind(b'$')
+                if header_idx == -1:
+                    continue
+                try:
+                    line = b[header_idx:].decode('ascii')
+                except UnicodeDecodeError:
+                    print('Failed to decode:', repr(b))
+                    continue
             else:
-                line = b
+                header_idx = b.rfind('$')
+                if header_idx == -1:
+                    continue
+                line = b[header_idx:]
 
             try:
                 return NavMsg.from_str(line)
