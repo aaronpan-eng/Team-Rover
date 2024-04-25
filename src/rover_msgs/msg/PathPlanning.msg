@@ -1,4 +1,2 @@
-std_msgs/Header header
-sensor_msgs/Imu imu
-sensor_msgs/MagneticField mag_field
-string raw
+float distance_to_travel # In meters to reach Goal
+float deg_clockwise_to_rot # In order to point at Goal
