@@ -76,7 +76,7 @@ class ControlNode(Node):
             self.prev_time = current_time
 
             # PID Control
-            self.error = msg.deg_to_rotate
+            self.error = msg.deg_to_rot
             self.integral_err = self.error + time_step
             self.derivative_err = (self.error - self.prev_error) / time_step
             self.prev_error = self.error
