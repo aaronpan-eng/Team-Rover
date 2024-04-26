@@ -109,7 +109,7 @@ class ControlNode(Node):
                 self.set_motor()
             
             # Print steering angle and motor status
-            self.get_logger().info('Steering: ', self.output, '    Motor status: ', self.motor_on)
+            self.get_logger().info(f'Steering: {self.output}, Motor status: {self.motor_on}')
             
 
     def set_motor(self):
