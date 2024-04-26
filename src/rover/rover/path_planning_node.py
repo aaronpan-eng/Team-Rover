@@ -15,6 +15,7 @@ class PathPlanningNode(Node):
         self.avg_easting = 0.0
         self.avg_yaw = 0.0
         self.count = 0
+        # TODO: set flag for gps coordinates to default to something later on
 
         # Subscribe to localization, obstacles, and LoRa topics
         self.localization_sub = self.create_subscription(
@@ -51,6 +52,8 @@ class PathPlanningNode(Node):
             self.avg_northing /= 5.0
             self.avg_easting /= 5.0
             self.avg_yaw /= 5.0
+
+            # TODO: if self.goal flag is off, then set the GPS to a offset from current locatoin
 
             # # Calculate distance to travel and angle to rotate
             # distance_to_travel = sqrt(
