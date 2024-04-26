@@ -9,7 +9,7 @@ from rover_msgs.msg import Localization, Vectornav, Customgps
 # Localization node that compiles gps and imu data into a single message
 class LocalizationNode(Node):
     def __init__(self):
-        super()._init_('localization_node')
+        super().__init__('localization_node')
 
         # Imu subscription and variables in node
         self.imu_message_count = 0
@@ -39,10 +39,11 @@ class LocalizationNode(Node):
 
     # Imu (vectornav) callback to recieve messages and average running total in 1 second
     def vn_callback(self, msg):
-        self.yaw += msg.imu.orientation.z
+        self.yaw += msg.yaw
         self.imu_message_count += 1
+        # print(self.imu_message_count)
 
-        if self.imu_message_count == 40:
+        if self.imu_message_count >= 40:
             self.yaw /= self.imu_message_count
             self.publish_localization_message()
             
@@ -51,20 +52,20 @@ class LocalizationNode(Node):
         self.northing = msg.utm_northing
         self.easting = msg.utm_easting
         self.time_gps = msg.header.stamp
-        self.publish_localization_message()
+        # self.publish_localization_message()
 
     # Compile all the messages from gps and imu average into a single message to publish
     def publish_localization_message(self):
-        if self.northing is not None and self.easting is not None and self.time_gps is not None and self.imu_message_count == 40:
+        if self.northing is not None and self.easting is not None and self.time_gps is not None and self.imu_message_count >= 40:
             # Collect messages from gps and imu callback to compile here
             localization_msg = Localization()
-            localization_msg.time_gps = self.time_gps
             localization_msg.yaw = self.yaw
             localization_msg.northing = self.northing
-            localization_msg.eating = self.easting
+            localization_msg.easting = self.easting
             localization_msg.header.frame_id = 'localization1_frame'
-            localization_msg.header.stamp = self.header.stamp
-            self.loc_publisher(localization_msg)
+            localization_msg.header.stamp = self.time_gps
+            self.loc_publisher.publish(localization_msg)
+            self.get_logger().info('Publishing: "%s"' % localization_msg)
 
             # Reset yaw running total and total imu message count to 0
             self.imu_message_count = 0
