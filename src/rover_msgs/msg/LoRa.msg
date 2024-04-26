@@ -1,3 +1,3 @@
-string emergency_stop_cmd, 
-float northing  # For Goal Coordinate
-float easting   # For Goal Coordinate
+string emergency_stop_cmd
+float64 northing  # For Goal Coordinate
+float64 easting   # For Goal Coordinate
