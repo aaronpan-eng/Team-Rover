@@ -17,7 +17,7 @@ MAX_STEERING = 50
 KP = 1
 KI = 0.001
 KD = 0.001
-STOP_RADIUS = 75 # meters
+STOP_RADIUS = 20 # meters
 # Start to finish is about 165 m, so we are starting big at about 75 m stop radius 
 # and narrowing it down
 
