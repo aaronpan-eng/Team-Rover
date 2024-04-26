@@ -13,7 +13,7 @@ def UTCtoUTCEpoch(UTC):
     CurrentTime = TimeSinceEpochBOD + UTCinSecs
     CurrentTimeSec = int(CurrentTime) #Replace with a 1-line calculation to get total seconds as an integer
     CurrentTimeNsec = int((CurrentTime-CurrentTimeSec)*1e9) #Replace with a 1-line calculation to get remaining nanoseconds as an integer (between CurrentTime and CurrentTimeSec )
-    print(CurrentTime)
+    # print(CurrentTime)
     return [CurrentTimeSec, CurrentTimeNsec]
 
 @dataclass

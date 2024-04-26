@@ -21,6 +21,9 @@ setup(
     entry_points={
         'console_scripts': [
             'obstacle_detector = rover.obstacle_detector_node:main',
+            'localization_node = rover.localization_node:main',
+            'path_planning_node = rover.path_planning_node:main',
+            'control_node = rover.control_node:main'
         ],
     },
 )

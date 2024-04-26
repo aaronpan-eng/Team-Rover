@@ -78,7 +78,10 @@ class ImuPublisher(Node):
             imu=imu,
             mag_field=mag,
             raw=data.raw,
+            yaw=data.orientation[2]
         )
+
+
         
         self.publisher_.publish(msg)
 

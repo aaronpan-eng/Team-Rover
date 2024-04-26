@@ -38,6 +38,9 @@ class Scan:
         distance between points.
         """
 
+        if ranges[-1] == '...':
+            ranges = ranges[:-1]
+            intensities = intensities[:-1]
         ranges = np.array(ranges)
         angles = np.linspace(angle_min, angle_max, len(ranges))
         intensities = np.array(intensities)
@@ -51,7 +54,7 @@ class Scan:
 
         return cls(forward, left)
 
-    def cluster(self, plot=False):
+    def cluster(self, plot=None):
         X = np.array([
             self.forward_range,
             self.left_range,
@@ -75,12 +78,12 @@ class Scan:
             obstacles[i] = ob
 
         if plot:
-            plot_clusters(X, clustering, obstacles)
+            plot_clusters(X, clustering, obstacles, plot)
 
         return list(obstacles.values())
 
 
-def detect_obstacles(msg, plot=False) -> List[Obstacle]:
+def detect_obstacles(msg, plot=None) -> List[Obstacle]:
     scan = Scan.from_ranges(msg['angle_min'], msg['angle_max'], msg['angle_increment'],
                             msg['time_increment'], msg['scan_time'],
                             msg['range_min'], msg['range_max'], msg['ranges'],
@@ -90,9 +93,10 @@ def detect_obstacles(msg, plot=False) -> List[Obstacle]:
     return obstacles
 
 
-def plot_clusters(X, clustering, obstacles: dict = None):
+def plot_clusters(X, clustering, obstacles: dict = None, save_path: Path = None):
     """Adapted from https://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py"""
     import matplotlib.pyplot as plt
+    plt.close()
 
     labels = clustering.labels_
 
@@ -107,6 +111,14 @@ def plot_clusters(X, clustering, obstacles: dict = None):
             col = [0, 0, 0, 1]
 
         class_member_mask = labels == k
+
+        plt.plot(
+            0, 0,
+            "s",
+            markerfacecolor="cyan",
+            markeredgecolor="k",
+            markersize=14,
+        )
 
         xy = X[class_member_mask & core_samples_mask]
         plt.plot(
@@ -134,7 +146,9 @@ def plot_clusters(X, clustering, obstacles: dict = None):
     print("Estimated number of clusters: %d" % n_clusters_)
     print("Estimated number of noise points: %d" % n_noise_)
 
-    plt.title(f"Estimated number of obstacles: {n_clusters_}")
+    plt.title(f"Laser scans and detected obstacles\nEstimated number of obstacles: {n_clusters_}")
+    plt.xlabel('Forward axis (m)')
+    plt.ylabel('Lateral axis (m)')
 
     if obstacles is not None:
         fig = plt.gcf()
@@ -152,19 +166,26 @@ def plot_clusters(X, clustering, obstacles: dict = None):
             )
             ax.add_patch(circle)
 
-    plt.show()
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
 
 
-def process_file(scan_file: Path, output_file: Path):
+def process_file(scan_file: Path, output_file: Path, plot_folder: Path = None):
     import yaml
 
     scans = yaml.safe_load_all(scan_file.open('r'))
 
     obstacle_msgs = []
-    for msg in scans:
+    for i, msg in enumerate(scans):
         if msg is None:
             continue
-        obs = detect_obstacles(msg)
+        if plot_folder:
+            plot_filename = plot_folder / f'fig_{i}.png'
+        else:
+            plot_filename = None
+        obs = detect_obstacles(msg, plot_filename)
         obstacle_msgs.append([ob.to_dict() for ob in obs])
 
     yaml.safe_dump_all(obstacle_msgs, output_file.open('w'))
@@ -174,6 +195,7 @@ if __name__ == '__main__':
     parser = ArgumentParser(description='Convert a file of laser scans into a file of collections of obstacles')
     parser.add_argument('scan_file', type=Path)
     parser.add_argument('output_file', type=Path)
+    parser.add_argument('plot_folder', default=None, type=Path)
     args = parser.parse_args()
 
-    process_file(args.scan_file, args.output_file)
+    process_file(args.scan_file, args.output_file, args.plot_folder)
