@@ -34,7 +34,7 @@ class GPSPublisher(Node):
 
         header = Header(
             frame_id='GPS1_Frame',
-            stamp=Time(seconds=sec, nanoseconds=nsec).to_msg()
+            stamp=self.get_clock().now().to_msg()  # Time(seconds=sec, nanoseconds=nsec).to_msg()
         )
 
         msg = Customgps(

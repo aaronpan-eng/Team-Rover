@@ -1,5 +1,4 @@
-# TODO other message types below
-float time_gps
-float northing
-float easting
-float yaw
+std_msgs/Header header
+float64 northing
+float64 easting
+float64 yaw

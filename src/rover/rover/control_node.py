@@ -58,41 +58,56 @@ class ControlNode(Node):
         self.prev_error = 0
         self.derivative_err = 0
         self.output = 0
+        self.prev_time = None
 
     def path_planning_callback(self, msg):
-
-        # PID Control
-        self.error = msg.deg_to_rotate
-        self.integral_err = self.error + TIME_STEP # TODO: calculate time step with gps timestamp
-        self.derivative_err = (self.error - self.prev_error) / TIME_STEP
-        self.prev_error = self.error
-        self.output = self.kp*self.error
-
-        # Setting max steering angle
-        if self.output >= MAX_STEERING:
-            self.output = MAX_STEERING
-        elif self.output <= -MAX_STEERING:
-            self.output = -MAX_STEERING
-        
-        # Distance to goal
-        self.distance_to_goal = msg.distance_to_travel
-        
-        # If distance to goal is not within stop radius, keep going
-        # If inside radius, stop
-        if self.distance_to_goal <= STOP_RADIUS:
-            # Servo angle
-            servo.angle = 0
-
-            # Turn motor on
-            self.motor_on = 0 
-            self.set_motor()
+        # Initialize previous time from gps and then start control after
+        if self.prev_time == None:
+            sec = msg.header.stamp.sec
+            nsec = msg.header.stamp.nanosec
+            current_time = sec + (nsec/1e9)
+            self.prev_time = current_time
+        # Start control once the previous time from the gps is initializes
         else:
-            # Servo angle
-            servo.angle = self.output
+            sec = msg.header.stamp.sec
+            nsec = msg.header.stamp.nanosec
+            current_time = sec + (nsec/1e9)
+            time_step = current_time - self.prev_time
+            self.prev_time = current_time
 
-            # Turn motor on
-            # self.motor_on = 1 # COMMENT OUT FOR TESTING
-            self.set_motor()
+            # PID Control
+            self.error = msg.deg_to_rotate
+            self.integral_err = self.error + time_step
+            self.derivative_err = (self.error - self.prev_error) / time_step
+            self.prev_error = self.error
+            self.output = self.kp*self.error
+
+            # Setting max steering angle
+            if self.output >= MAX_STEERING:
+                self.output = MAX_STEERING
+            elif self.output <= -MAX_STEERING:
+                self.output = -MAX_STEERING
+            
+            # Distance to goal
+            self.distance_to_goal = msg.distance_to_travel
+            
+            # If distance to goal is not within stop radius, keep going
+            # If inside radius, stop
+            if self.distance_to_goal <= STOP_RADIUS:
+                # Servo angle
+                servo.angle = 0
+
+                # Turn motor on
+                self.motor_on = 0 
+                self.set_motor()
+            else:
+                # Servo angle
+                servo.angle = self.output
+
+                # Turn motor on
+                # self.motor_on = 1 # COMMENT OUT FOR TESTING
+                self.set_motor()
+            
 
     def set_motor(self):
         if self.motor_on == 1:

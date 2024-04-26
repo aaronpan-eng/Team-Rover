@@ -62,6 +62,8 @@ class LocalizationNode(Node):
             localization_msg.yaw = self.yaw
             localization_msg.northing = self.northing
             localization_msg.eating = self.easting
+            localization_msg.header.frame_id = 'localization1_frame'
+            localization_msg.header.stamp = self.header.stamp
             self.loc_publisher(localization_msg)
 
             # Reset yaw running total and total imu message count to 0

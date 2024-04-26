@@ -67,9 +67,11 @@ class PathPlanningNode(Node):
         # Calculate distance to travel
         distance_to_travel = sqrt(
                 (self.goal_northing - self.northing) ** 2 + (self.goal_easting - self.easting) ** 2)
-        
+
         # Publish message
         path_planning_msg = PathPlanning()
+        path_planning_msg.header.frame_id = 'path_planning1_frame'
+        path_planning_msg.header.stamp = msg.header.stamp
         path_planning_msg.distance_to_travel = distance_to_travel
         path_planning_msg.deg_to_rot = goal_angle # [-180,180], + being turn right, - being turn left
         self.path_planning_pub.publish(path_planning_msg)
