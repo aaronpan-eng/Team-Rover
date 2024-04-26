@@ -92,7 +92,7 @@ class PathPlanningNode(Node):
             # Publish path planning data
             path_planning_msg = PathPlanning()
             path_planning_msg.distance_to_travel = distance_to_travel
-            path_planning_msg.deg_clockwise_to_rot = goal_angle # change message to now describe it as [-180,180], + being turn right, - being turn left
+            path_planning_msg.deg_clockwise_to_rot = goal_angle # TODO: change message to now describe it as [-180,180], + being turn right, - being turn left
             self.path_planning_pub.publish(path_planning_msg)
 
             # Reset variables for next averaging period
