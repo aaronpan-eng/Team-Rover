@@ -14,10 +14,10 @@ class PathPlanningNode(Node):
         self.northing = 0.0
         self.easting = 0.0
         self.yaw = 0.0
-        # ?self.count = 0
+        # self.count = 0
 
+        # Flag for setting default value or lora value of gps coordinates
         self.gps_flag = 0
-        # TODO: set flag for gps coordinates to default to something later on
 
         # Subscribe to localization, obstacles, and LoRa topics
         self.localization_sub = self.create_subscription(
@@ -44,6 +44,7 @@ class PathPlanningNode(Node):
             PathPlanning, 'path_planning_topic', 10)
 
     def localization_callback(self, msg):
+        # Setting to default value of northing and easting if not set by lora
         if self.gps_flag == 0:
             self.goal_northing = msg.northing - 138
             self.goal_easting = msg.easting - 87
