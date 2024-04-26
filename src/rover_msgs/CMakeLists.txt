@@ -29,6 +29,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Obstacles.msg"
   "msg/Vectornav.msg"
   "msg/Customgps.msg"
+  "msg/Localizaton.msg"
+  "msg/LoRa.msg"
+  "msg/PathPlanning.msg"
   DEPENDENCIES std_msgs geometry_msgs sensor_msgs
 )
 
