@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 
-import sys
 import rclpy
 from rclpy.node import Node
-import math
-import serial
-import numpy as np
 
 # Custom messages import
 from rover_msgs.msg import Localization, Vectornav, Customgps
