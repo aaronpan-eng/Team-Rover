@@ -41,7 +41,7 @@ class ControlNode(Node):
 
         self.create_subscription(
             PathPlanning,
-            'path_planning_topic',
+            'path_planning',
             self.path_planning_callback,
             10
         )
@@ -107,6 +107,9 @@ class ControlNode(Node):
                 # Turn motor on
                 # self.motor_on = 1 # COMMENT OUT FOR TESTING
                 self.set_motor()
+            
+            # Print steering angle and motor status
+            self.get_logger().info('Steering: ', self.output, '    Motor status: ', self.motor_on)
             
 
     def set_motor(self):
