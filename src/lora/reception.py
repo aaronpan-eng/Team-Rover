@@ -1,95 +1,60 @@
-# SPDX-FileCopyrightText: 2018 Brent Rubell for Adafruit Industries
-#
-# SPDX-License-Identifier: MIT
-
-"""
-Example for using the RFM9x Radio with Raspberry Pi.
-
-Learn Guide: https://learn.adafruit.com/lora-and-lorawan-for-raspberry-pi
-Author: Brent Rubell for Adafruit Industries
-"""
-# Import Python System Libraries
-import time
 import sys
-from digitalio import DigitalInOut, Direction, Pull
-
-# Import Blinka Libraries
-import busio
-import board
+import rclpy
+from rclpy.node import Node
 
 # Import RFM9x
 import adafruit_rfm9x
 
-# Updates for 2/16 test
-import subprocess
-import platform
+class LoRaNode(Node):
 
-# Updates for UART from LoRA
-import threading
+    def __init__(self):
+        super().__init__('lora_node')
 
-def UART_timestamping():
-    subprocess.run(["python3", "/home/username/uart_timestamp_read_in.py"])
+        # Configure LoRa Radio
+        CS = DigitalInOut(board.CE1)
+        RESET = DigitalInOut(board.D25)
+        spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        self.rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
+        self.rfm9x.tx_power = 23
 
-def UART_DAC_PING():
-    subprocess.run(["python3", "/home/username/DAC_PING.py"])
+        # Create publisher for northing and easting coordinates
+        self.coord_publisher = self.create_publisher(NorthingEasting, 'northing_easting', 10)
 
-def timestamping_status():
-    if timestamping.is_alive():
-        return "TIMESTAMPING ALIVE"
-    elif not timestamping.is_alive():
-        return "TIMESTAMPING DEAD"
+        # Start listening for LoRa messages
+        self.receive_loop()
 
-timestamping = threading.Thread(target=UART_timestamping)
+    def receive_loop(self):
+        while True:
+            # Wait for a packet to be received
+            packet = self.rfm9x.receive(timeout=10)
+            if packet is not None:
+                try:
+                    received_message = packet.decode("utf-8")
+                    northing, easting = map(float, received_message.split(','))
+                    self.publish_coordinates(northing, easting)
+                except Exception as e:
+                    # Publish error message
+                    self.get_logger().error(f"Error receiving message: {e}")
+                    self.publish_error("Error receiving coordinates. Rover stopped.")
+                print("Received coordinates:", northing, easting)
 
-# Create the I2C interface.
-i2c = busio.I2C(board.SCL, board.SDA)
+    def publish_coordinates(self, northing, easting):
+        msg = NorthingEasting()
+        msg.northing = northing
+        msg.easting = easting
+        self.coord_publisher.publish(msg)
 
-# Configure LoRa Radio
-CS = DigitalInOut(board.CE1)
-RESET = DigitalInOut(board.D25)
-spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
-rfm9x.tx_power = 23
+    def publish_error(self, message):
+        # Publish error message
+        msg = String()
+        msg.data = message
+        self.error_publisher.publish(msg)
 
-this_hostname = platform.node()
+def main(args=None):
+    rclpy.init(args=args)
+    lora_node = LoRaNode()
+    rclpy.spin(lora_node)
+    rclpy.shutdown()
 
-while True:
-    # Get user input for the message to send
-#    message_to_send = input("Enter message to send: ")
-
-    # Wait for a packet to be received
-    packet = rfm9x.receive(timeout=10)
-    if packet is not None:
-        # Decode and print the received message
-        print(packet)
-        try:
-            received_message = packet.decode("utf-8")
-        except:
-            print("null string error")
-        # print("")
-        print(received_message)
-        if this_hostname in received_message:
-            if "echo" in received_message:
-                rfm9x.send(bytes(received_message, "utf-8"))
-                print("Message sent:", received_message)
-            if "transmit" in received_message:
-                UART_DAC_PING()
-                rfm9x.send(bytes("DAC PING SENT", "utf-8"))
-            if "timestamp" in received_message:
-                f = open("/home/username/timestamp.txt", "r")
-                timestamp = f.read()
-                f.close()
-                rfm9x.send(bytes(timestamp," utf-8"))
-                f = open("/home/username/timestamp.txt", "w")
-                f.write("invalid")
-                f.close()
-            if "uart" in received_message:
-                str = timestamping_status()
-                rfm9x.send(bytes(str," utf-8"))
-        if "all" in received_message:
-            if "uart" in received_message:
-                if not timestamping.is_alive():
-                    timestamping = threading.Thread(target=UART_timestamping)
-                    timestamping.start()
-                str = timestamping_status()
-                rfm9x.send(bytes(str," utf-8"))
+if __name__ == '__main__':
+    main()
