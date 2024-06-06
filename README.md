@@ -1,6 +1,6 @@
 # Team-Rover
 ## About
-In this project we built an autonomous rover that can go from an initial position to a destination GPS coordingate with PID control the steering.
+In this project we built an autonomous rover that can go from an initial position to a destination GPS coordingate with PID control on the steering.
 
 A lidar was also used for obstacle detection using clustering with scikit.
 
