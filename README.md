@@ -5,4 +5,6 @@ In this project we built an autonomous rover that can go from an initial positio
 A lidar was also used for obstacle detection using clustering with scikit.
 
 ## Video Demo
-[![Video Demo](https://img.youtube.com/vi/hkiTGj835cY/2.jpg)](https://www.youtube.com/watch?v=hkiTGj835cY)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=hkiTGj835cY
+" target="_blank"><img src="http://img.youtube.com/vi/hkiTGj835cY/1.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
